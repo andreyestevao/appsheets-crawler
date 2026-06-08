@@ -2,8 +2,7 @@
 """
 Inventário automatizado dos links AppSheet/Sheets para migração CEI.
 
-Uso:
-  cd /home/andrey/Documentos/CEI/migracao-appsheet
+Uso (na raiz do repositório appsheets-crawler):
   python3 -m venv .venv && source .venv/bin/activate
   pip install -r requirements.txt
   python scripts/inventariar.py

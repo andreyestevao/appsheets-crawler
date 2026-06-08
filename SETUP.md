@@ -11,7 +11,7 @@ Ferramenta local que usa **suas credenciais Google** (OAuth no navegador) para l
 ## Passo 1 — Google Cloud OAuth (Sheets + Drive)
 
 1. Acesse [Google Cloud Console](https://console.cloud.google.com/).
-2. Crie ou selecione um projeto (ex.: `cei-migracao-inventario`).
+2. Crie ou selecione um projeto (ex.: `appsheets-crawler`).
 3. Ative as APIs:
    - **Google Sheets API**
    - **Google Drive API**
@@ -19,7 +19,7 @@ Ferramenta local que usa **suas credenciais Google** (OAuth no navegador) para l
 5. **Credentials** → **Create credentials** → **OAuth client ID** → **Desktop app**.
 6. Baixe o JSON e salve como:
 
-   `/home/andrey/Documentos/CEI/migracao-appsheet/credentials/client_secret.json`
+   `credentials/client_secret.json` (na raiz do repositório)
 
 ## Passo 2 — AppSheet API (opcional, enriquece inventário)
 
@@ -39,7 +39,7 @@ Para cada app que você edita no AppSheet:
 ## Passo 3 — Executar inventário
 
 ```bash
-cd /home/andrey/Documentos/CEI/migracao-appsheet
+cd appsheets-crawler   # raiz do repositório clonado
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt

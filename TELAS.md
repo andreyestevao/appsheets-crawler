@@ -16,7 +16,7 @@ Varredura **sem limite de tempo por link**: avança quando abas, filtros e formu
 ## Comandos
 
 ```bash
-cd /home/andrey/Documentos/CEI/migracao-appsheet
+cd appsheets-crawler   # raiz do repositório clonado
 
 ./inventariar-telas.sh --login                    # aguarda login até 60s
 ./inventariar-telas.sh                            # varredura completa, browser visível

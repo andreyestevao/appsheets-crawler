@@ -1,4 +1,4 @@
-# migracao-appsheet
+# appsheets-crawler
 
 Ferramentas locais para inventariar apps **Google AppSheet** antes da migração para a arquitetura CEI (PostgreSQL + `cei_apps_service` + frontends Angular).
 
@@ -22,8 +22,8 @@ Documentação detalhada:
 ## Início rápido — inventário de telas
 
 ```bash
-git clone https://github.com/andreyestevao/migracao-appsheet.git
-cd migracao-appsheet
+git clone https://github.com/andreyestevao/appsheets-crawler.git
+cd appsheets-crawler
 
 ./inventariar-telas.sh --login    # login manual no browser (perfil em credentials/)
 ./inventariar-telas.sh            # varredura completa; artefatos em saida/telas/
