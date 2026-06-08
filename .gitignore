@@ -4,6 +4,7 @@ credentials/browser-appsheet-profile/
 credentials/*.json
 !credentials/.gitkeep
 apps_mapeamento.json
+links.md
 saida/
 .env
 *.pyc

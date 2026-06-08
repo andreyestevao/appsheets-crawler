@@ -1,6 +1,6 @@
 # appsheets-crawler
 
-Ferramentas locais para inventariar apps **Google AppSheet** antes da migração para a arquitetura CEI (PostgreSQL + `cei_apps_service` + frontends Angular).
+Ferramentas locais para **inventariar apps Google AppSheet** (UI autenticada e, opcionalmente, planilhas/API) antes de migrar para outro stack. A estratégia é **agnóstica**: este repositório só coleta estrutura e dependências; a decisão de destino fica com você.
 
 Dois fluxos complementares:
 
@@ -9,7 +9,7 @@ Dois fluxos complementares:
 | **Telas autenticadas** (Playwright, somente leitura) | `./inventariar-telas.sh` | `saida/telas/` — JSON, screenshots, resumo |
 | **Planilhas / API** (OAuth Google, opcional) | `python scripts/inventariar.py` | `saida/inventario-*.json`, `ordem-migracao.md` |
 
-Documentação detalhada:
+Documentação:
 
 - [TELAS.md](TELAS.md) — varredura de UI AppSheet (política read-only)
 - [SETUP.md](SETUP.md) — OAuth Google, AppSheet API, inventário de planilhas
@@ -19,31 +19,30 @@ Documentação detalhada:
 - Python 3.10+
 - Chromium (instalado via Playwright no primeiro `./inventariar-telas.sh`)
 
-## Início rápido — inventário de telas
+## Início rápido
 
 ```bash
 git clone https://github.com/andreyestevao/appsheets-crawler.git
 cd appsheets-crawler
 
-./inventariar-telas.sh --login    # login manual no browser (perfil em credentials/)
-./inventariar-telas.sh            # varredura completa; artefatos em saida/telas/
+cp links.exemplo.md links.md   # edite com seus links AppSheet/Sheets
+
+./inventariar-telas.sh --login
+./inventariar-telas.sh --documento links.md
 ```
 
-Informe o markdown de links com `--links /caminho/Link\ das\ aplicações.md` (padrão: documento CEI local).
+Ou informe outro markdown: `--documento /caminho/seus-links.md`.
 
 ## O que não vai para o Git
 
 Pastas e arquivos locais (ver `.gitignore`):
 
 - `saida/` — resultados de varredura e inventário
+- `links.md` — seu catálogo de apps (use `links.exemplo.md` como base)
 - `credentials/` — OAuth, perfil do browser, chaves AppSheet
 - `apps_mapeamento.json` — chaves de API por app
 - `.venv/`
 
-## Planos de migração CEI
-
-Cronograma e ordem de módulos ficam em documentação separada (pasta **Plano Migração CEI**), fora deste repositório de ferramentas.
-
 ## Licença
 
-Uso interno / projeto CEI.
+MIT (ou conforme indicado no repositório).

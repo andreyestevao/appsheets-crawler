@@ -16,7 +16,7 @@ class NoMigracao:
 
     identificador: str
     titulo: str
-    origem: str  # sheets | appsheet | cei_existente
+    origem: str  # sheets | appsheet
     spreadsheet_id: str | None = None
     nome_aba: str | None = None
     app_name: str | None = None
@@ -25,15 +25,6 @@ class NoMigracao:
     peso_complexidade: int = 0
     observacao: str | None = None
     dependencias: set[str] = field(default_factory=set)
-
-
-# Pré-requisitos já previstos na arquitetura CEI (ordem fixa no início).
-NOS_CEI_BASE = [
-    ("cei:sso", "Manter Autenticação SSO", 0),
-    ("cei:rbac", "Manter Permissões / RBAC", 1),
-    ("cei:anexos", "Infraestrutura de anexos (MinIO)", 2),
-    ("cei:pessoas", "Manter Pessoas / Colaborador", 3),
-]
 
 
 def _id_planilha(spreadsheet_id: str, aba: str) -> str:
@@ -160,15 +151,12 @@ def montar_relatorio_ordem(
     linhas = [
         "# Ordem sugerida de migração (gerada automaticamente)",
         "",
-        "Base CEI (fixa no início):",
+        "Ordenação topológica a partir de colunas Ref e vínculos AppSheet/planilha.",
+        "",
+        "## Cadastros AppSheet / planilhas",
         "",
     ]
-    for idx, (_, titulo, _) in enumerate(NOS_CEI_BASE, start=1):
-        linhas.append(f"{idx}. **{titulo}**")
-
-    linhas.extend(["", "## Cadastros AppSheet / planilhas", ""])
-    offset = len(NOS_CEI_BASE)
-    for i, node_id in enumerate(ordem, start=offset + 1):
+    for i, node_id in enumerate(ordem, start=1):
         no = nos[node_id]
         deps = [nos[d].titulo for d in no.dependencias if d in nos]
         extra = []

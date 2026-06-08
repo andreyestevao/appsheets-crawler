@@ -34,7 +34,7 @@ sys.path.insert(0, str(SCRIPTS))
 from parse_links import EntradaLink, parsear_markdown  # noqa: E402
 from varredura_tela import varrer_tela  # noqa: E402
 
-DOCUMENTO_PADRAO = Path("/home/andrey/Documentos/CEI/Link das aplicações.md")
+DOCUMENTO_PADRAO = RAIZ / "links.md"
 PERFIL_BROWSER = RAIZ / "credentials" / "browser-appsheet-profile"
 SCRIPT_EXTRACAO = SCRIPTS / "extrair_ui_appsheet.js"
 PASTA_SAIDA = RAIZ / "saida" / "telas"
@@ -266,7 +266,11 @@ def inventariar(
     from playwright.sync_api import sync_playwright
 
     if not documento.is_file():
-        print(f"Documento não encontrado: {documento}", file=sys.stderr)
+        print(
+            f"Documento não encontrado: {documento}\n"
+            "Dica: cp links.exemplo.md links.md e edite com seus links.",
+            file=sys.stderr,
+        )
         return 1
 
     entradas = _filtrar_entradas(
@@ -442,7 +446,7 @@ def inventariar(
 
 
 def _montar_resumo_markdown(relatorio: dict, sessao: Path) -> str:
-    """Resumo legível para revisão humana e para o agente Cursor."""
+    """Resumo legível para revisão humana."""
     linhas = [
         "# Inventário de telas AppSheet",
         "",
@@ -495,7 +499,7 @@ def main() -> int:
         "--documento",
         type=Path,
         default=DOCUMENTO_PADRAO,
-        help="Markdown com links (padrão: Link das aplicações.md)",
+        help="Markdown com links (padrão: links.md na raiz do repositório)",
     )
     parser.add_argument(
         "--login",

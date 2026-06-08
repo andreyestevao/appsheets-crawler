@@ -17,11 +17,12 @@ Varredura **sem limite de tempo por link**: avança quando abas, filtros e formu
 
 ```bash
 cd appsheets-crawler   # raiz do repositório clonado
+cp links.exemplo.md links.md                        # edite com seus links
 
-./inventariar-telas.sh --login                    # aguarda login até 60s
-./inventariar-telas.sh                            # varredura completa, browser visível
-./inventariar-telas.sh --limite 2                 # teste
-./inventariar-telas.sh --app atividadesEcompras
+./inventariar-telas.sh --login                      # aguarda login até 60s
+./inventariar-telas.sh --documento links.md         # varredura completa, browser visível
+./inventariar-telas.sh --documento links.md --limite 2
+./inventariar-telas.sh --documento links.md --app meuApp
 ```
 
 **Não use `--headless`** se quiser acompanhar abas e filtros.

@@ -1,5 +1,5 @@
 """
-Extrai entradas do markdown 'Link das aplicações.md' para inventário de migração.
+Extrai entradas de um markdown de catálogo ([Link](url)) para inventário AppSheet/Sheets.
 """
 
 from __future__ import annotations

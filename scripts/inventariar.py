@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """
-Inventário automatizado dos links AppSheet/Sheets para migração CEI.
+Inventário automatizado dos links AppSheet/Sheets (OAuth + grafo de dependências).
 
 Uso (na raiz do repositório appsheets-crawler):
   python3 -m venv .venv && source .venv/bin/activate
   pip install -r requirements.txt
-  python scripts/inventariar.py
+  cp links.exemplo.md links.md
+  python scripts/inventariar.py --documento links.md
 
 Na primeira execução abre o navegador para login Google (OAuth).
 Credenciais ficam em credentials/ (gitignored).
@@ -13,6 +14,7 @@ Credenciais ficam em credentials/ (gitignored).
 
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from dataclasses import asdict
@@ -34,7 +36,7 @@ from inventario_appsheet import carregar_mapeamento, inventariar_apps_configurad
 from inventario_planilhas import inventariar_planilha  # noqa: E402
 from parse_links import agrupar_por_app, parsear_markdown  # noqa: E402
 
-DOCUMENTO_LINKS = Path("/home/andrey/Documentos/CEI/Link das aplicações.md")
+DOCUMENTO_PADRAO = RAIZ / "links.md"
 PASTA_SAIDA = RAIZ / "saida"
 PASTA_CRED = RAIZ / "credentials"
 MAPEAMENTO = RAIZ / "apps_mapeamento.json"
@@ -47,11 +49,25 @@ def _serializar(obj):
 
 
 def main() -> int:
-    if not DOCUMENTO_LINKS.is_file():
-        print(f"Documento não encontrado: {DOCUMENTO_LINKS}", file=sys.stderr)
+    parser = argparse.ArgumentParser(description="Inventário AppSheet/Sheets via OAuth Google.")
+    parser.add_argument(
+        "--documento",
+        type=Path,
+        default=DOCUMENTO_PADRAO,
+        help="Markdown com links (padrão: links.md na raiz do repositório)",
+    )
+    args = parser.parse_args()
+    documento_links = args.documento
+
+    if not documento_links.is_file():
+        print(
+            f"Documento não encontrado: {documento_links}\n"
+            f"Dica: cp links.exemplo.md links.md e edite com seus links.",
+            file=sys.stderr,
+        )
         return 1
 
-    entradas = parsear_markdown(DOCUMENTO_LINKS)
+    entradas = parsear_markdown(documento_links)
     por_app = agrupar_por_app(entradas)
 
     spreadsheet_ids = sorted({e.spreadsheet_id for e in entradas if e.spreadsheet_id})
@@ -98,7 +114,7 @@ def main() -> int:
 
     payload = {
         "gerado_em": timestamp,
-        "documento_origem": str(DOCUMENTO_LINKS),
+        "documento_origem": str(documento_links),
         "entradas": [_serializar(e) for e in entradas],
         "planilhas": [_serializar(p) for p in inventarios_planilhas],
         "planilhas_drive_sugeridas": planilhas_drive,
