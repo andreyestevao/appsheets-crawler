@@ -1,0 +1,18 @@
+{
+  "_instrucoes": "Copie para apps_mapeamento.json. appId em AppSheet: Manage > Settings > Integrations > Enable API. Chave em Application Access Key.",
+  "apps": {
+    "atividadesEcompras-745673639": {
+      "app_id": "SUBSTITUA_PELO_APP_ID",
+      "tabelas_prioritarias": ["atividades", "compras"]
+    },
+    "controleProjetos-745673639-23-09-21": {
+      "app_id": "SUBSTITUA_PELO_APP_ID",
+      "tabelas_prioritarias": []
+    },
+    "dadosEmpresas-745673639": {
+      "app_id": "SUBSTITUA_PELO_APP_ID",
+      "tabelas_prioritarias": []
+    }
+  },
+  "chave_acesso_global": "OPCIONAL_SE_MESMA_CHAVE_PARA_TODOS_OS_APPS"
+}

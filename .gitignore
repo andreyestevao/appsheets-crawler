@@ -1,0 +1,11 @@
+credentials/client_secret.json
+credentials/token.json
+credentials/browser-appsheet-profile/
+credentials/*.json
+!credentials/.gitkeep
+apps_mapeamento.json
+saida/
+.env
+*.pyc
+__pycache__/
+.venv/
