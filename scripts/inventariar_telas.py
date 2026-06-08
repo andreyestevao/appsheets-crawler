@@ -489,7 +489,7 @@ def _montar_resumo_markdown(relatorio: dict, sessao: Path) -> str:
             linhas.append(f"- {item['titulo']}: {item.get('erro')}")
 
     linhas.append("")
-    linhas.append("_Peça ao agente Cursor: analise `saida/telas/inventario-telas-latest.json` e screenshots da pasta da sessão._")
+    linhas.append("_Revise `saida/telas/inventario-telas-latest.json` e os screenshots da sessão._")
     return "\n".join(linhas)
 
 
